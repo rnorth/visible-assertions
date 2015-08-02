@@ -217,7 +217,7 @@ public class VisibleAssertionsTest {
     @Test
     public void testAssertThrowsWhenNoException() {
         try {
-            assertThrows(NullPointerException.class, new Callable() {
+            assertThrows("It throws a NPE", NullPointerException.class, new Callable() {
                 public Object call() throws Exception {
                     // don't throw
                     return null;
@@ -227,14 +227,14 @@ public class VisibleAssertionsTest {
         } catch (AssertionError expected) {
         }
 
-        assert getCapturedStdOut().contains("✘ Expected exception (NullPointerException) was not thrown");
+        assert getCapturedStdOut().contains("✘ It throws a NPE");
     }
 
     @Test
     public void testAssertThrowsWhenWrongException() {
 
         try {
-            assertThrows(NullPointerException.class, new Callable() {
+            assertThrows("It fails with a NPE", NullPointerException.class, new Callable() {
                 public Object call() throws Exception {
                     // throw the wrong exception
                     throw new ArrayIndexOutOfBoundsException();
@@ -244,8 +244,8 @@ public class VisibleAssertionsTest {
         } catch (AssertionError expected) {
         }
 
-        assert getCapturedStdOut().contains("✘ Expected exception (NullPointerException) was not thrown");
-        assert getCapturedStdOut().contains("ArrayIndexOutOfBoundsException was thrown instead!");
+        assert getCapturedStdOut().contains("✘ It fails with a NPE");
+        assert getCapturedStdOut().contains("ArrayIndexOutOfBoundsException was thrown instead of NullPointerException");
     }
 
     private void failIfReachedHere() {

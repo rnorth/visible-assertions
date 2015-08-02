@@ -23,6 +23,10 @@ import org.hamcrest.StringDescription;
 import java.util.concurrent.Callable;
 
 /**
+ * Assertions for use in Java tests, with contextual information on each assertion performed.
+ *
+ * Output is to stdout, and is coloured if the terminal supports it.
+ *
  * @author rnorth
  */
 public class VisibleAssertions extends AnsiSupport {
@@ -38,24 +42,53 @@ public class VisibleAssertions extends AnsiSupport {
 
     }
 
+    /**
+     * Log an informational message.
+     *
+     * The output will be in white, following an 'i' symbol.
+     *
+     * @param message message to output
+     */
     public static void info(String message) {
         initialize();
         ansiPrintf("        @|white,bold " + INFO_MARK + " " + message + " |@\n");
     }
 
+    /**
+     * Log a warning message.
+     *
+     * The output will be in yellow, following a '!' symbol.
+     *
+     * @param message message to output
+     */
     public static void warn(String message) {
         initialize();
         ansiPrintf("        @|yellow,bold " + WARN_MARK + " " + message + " |@\n");
     }
 
+    /**
+     * Log a contextual message, in the style of a 'dividing line' in the test output.
+     *
+     * The output will be in grey, surrounded by a horizontal line the full width of the current terminal (or 80 chars).
+     *
+     * @param context contextual message to output.
+     */
     public static void context(CharSequence context) {
         context(context, 0);
     }
 
+    /**
+     * Log a contextual message, in the style of a 'dividing line' in the test output.
+     *
+     * The output will be in grey, surrounded by a horizontal line the full width of the current terminal (or 80 chars).
+     *
+     * @param context contextual message to output
+     * @param indent number of space characters to indent this line by
+     */
     public static void context(CharSequence context, int indent) {
         initialize();
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i=0; i<indent; i++) sb.append(" ");
         for (int i=0; i<4; i++) sb.append(CONTEXT_MARK);
 
@@ -71,6 +104,14 @@ public class VisibleAssertions extends AnsiSupport {
         ansiPrintf("@|faint " + sb.toString() + " |@\n");
     }
 
+    /**
+     * Assert that a value is true.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param value value to test
+     */
     public static void assertTrue(String message, boolean value) {
         if (value) {
             pass(message);
@@ -79,6 +120,14 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
+    /**
+     * Assert that a value is false.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param value value to test
+     */
     public static void assertFalse(String message, boolean value) {
         if (!value) {
             pass(message);
@@ -87,6 +136,17 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
+    /**
+     * Assert that an actual value is equal to an expected value.
+     *
+     * Equality is tested with the standard Object equals() method, unless both values are null.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param expected the expected value
+     * @param actual the actual value
+     */
     public static void assertEquals(String message, Object expected, Object actual) {
         if (expected == null && actual == null) {
             pass(message);
@@ -97,6 +157,14 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
+    /**
+     * Assert that a value is null.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param o value to test
+     */
     public static void assertNull(String message, Object o) {
         if (o == null) {
             pass(message);
@@ -105,6 +173,14 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
+    /**
+     * Assert that a value is not null.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param o value to test
+     */
     public static void assertNotNull(String message, Object o) {
         if (o != null) {
             pass(message);
@@ -113,6 +189,17 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
+    /**
+     * Assert that an actual value is the same object as an expected value.
+     *
+     * Sameness is tested with the == operator.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param expected the expected value
+     * @param actual the actual value
+     */
     public static void assertSame(String message, Object expected, Object actual) {
         if (expected == actual) {
             pass(message);
@@ -121,10 +208,25 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
+    /**
+     * Just fail with an AssertionError, citing a given message.
+     *
+     * A red cross will be shown.
+     *
+     * @param message message to display alongside the red cross
+     */
     public static void fail(String message) {
         fail(message, null);
     }
 
+    /**
+     * Assert using a Hamcrest matcher.
+     *
+     * @param whatTheObjectIs what is the thing being tested, in a logical sense
+     * @param actual the actual value
+     * @param matcher a matcher to check the actual value against
+     * @param <T> class of the actual value
+     */
     public static <T> void assertThat(String whatTheObjectIs, T actual, Matcher<? super T> matcher) {
         Description description = new StringDescription();
         if (matcher.matches(actual)) {
@@ -141,18 +243,36 @@ public class VisibleAssertions extends AnsiSupport {
         }
     }
 
-    public static void assertThrows(Class<? extends Exception> throwableClass, Callable callable) {
+    /**
+     * Assert that a given callable throws an exception of a particular class.
+     *
+     * The assertion passes if the callable throws exactly the same class of exception (not a subclass).
+     *
+     * If the callable doesn't throw an exception at all, or if another class of exception is thrown, the assertion
+     * fails.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param exceptionClass the expected exception class
+     * @param callable a Callable to invoke
+     */
+    public static void assertThrows(String message, Class<? extends Exception> exceptionClass, Callable callable) {
         try {
             callable.call();
-            fail("Expected exception (" + throwableClass.getSimpleName() + ") was not thrown");
+            fail(message, "No exception was thrown (expected " + exceptionClass.getSimpleName() + ")");
         } catch (Exception e) {
-            if (!e.getClass().equals(throwableClass)) {
-                fail("Expected exception (" + throwableClass.getSimpleName() + ") was not thrown", e.getClass().getSimpleName() + " was thrown instead!");
+            if (!e.getClass().equals(exceptionClass)) {
+                fail(message, e.getClass().getSimpleName() + " was thrown instead of " + exceptionClass.getSimpleName());
             }
         }
     }
 
-    private static void pass(String message) {
+    /**
+     * Indicate that something passed.
+     * @param message message to display alongside a green tick
+     */
+    public static void pass(String message) {
         initialize();
         ansiPrintf("        @|green " + TICK_MARK + " " + message + " |@\n");
     }
