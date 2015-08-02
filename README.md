@@ -8,14 +8,9 @@
 ## Table of Contents
 <!-- MarkdownTOC autolink=true bracket=round depth=3 -->
 
-- [Use Cases](#use-cases)
+- [Use Case](#use-case)
 - [Usage summary](#usage-summary)
-- [Usage](#usage)
-    - [Prerequisites](#prerequisites)
-    - [JUnit rule](#junit-rule)
-    - [JDBC URL](#jdbc-url)
 - [Maven dependency](#maven-dependency)
-- [Supported containers](#supported-containers)
 - [License](#license)
 - [Attributions](#attributions)
 - [Contributing](#contributing)
