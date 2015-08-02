@@ -2,6 +2,8 @@
 
 > Visible Assertions is a Java library that provides a more insightful, fun, log narrative for automated test suites.
 
+<img src="screenshot.png" width="100%" alt="Screenshot showing example output"/>
+
 [![Circle CI](https://circleci.com/gh/rnorth/visible-assertions/tree/master.svg?style=svg)](https://circleci.com/gh/rnorth/visible-assertions/tree/master)
 
 
@@ -74,7 +76,8 @@ yields:
 If you want to assert that a block of code definitely does throw a particular class of assertion:
 
     assertThrows("it blows up if the input is out of range", IllegalArgumentException.class, () -> {
-        account.withdraw(-1);    });
+        account.withdraw(-1);
+    });
 
 This will fail if no exception is thrown or if the wrong type of exception is thrown.
 
