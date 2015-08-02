@@ -12,6 +12,10 @@
 
 - [Use Case](#use-case)
 - [Usage summary](#usage-summary)
+    - [Simple assertions](#simple-assertions)
+    - [Hamcrest](#hamcrest)
+    - [assertThrows](#assertthrows)
+    - [General test narrative](#general-test-narrative)
 - [Maven dependency](#maven-dependency)
 - [License](#license)
 - [Attributions](#attributions)
