@@ -97,7 +97,7 @@ public class VisibleAssertionsTest {
     }
 
     @Test
-    public void testNotEqualsAssertion() {
+    public void testNonEqualsAssertion() {
         try {
             assertEquals("it should be equal", "B", "A");
             failIfReachedHere();
@@ -105,6 +105,34 @@ public class VisibleAssertionsTest {
         }
         assert getCapturedStdOut().contains("✘ it should be equal");
         assert getCapturedStdOut().contains("'A' does not equal expected 'B'");
+    }
+
+    @Test
+    public void testNotEqualsAssertion() {
+        try {
+            assertNotEquals("it should not be equal", "A", "A");
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should not be equal");
+    }
+
+    @Test
+    public void testOneNullNotEqualsAssertion() {
+        assertNotEquals("it should not be equal", null, "A");
+        assert getCapturedStdOut().contains("✔ it should not be equal");
+    }
+
+    @Test
+    public void testOneOtherNullNotEqualsAssertion() {
+        assertNotEquals("it should not be equal", "A", null);
+        assert getCapturedStdOut().contains("✔ it should not be equal");
+    }
+
+    @Test
+    public void testNonNotEqualsAssertion() {
+        assertNotEquals("it should not be equal", "B", "A");
+        assert getCapturedStdOut().contains("✔ it should not be equal");
     }
 
     @Test(expected = RuntimeException.class)

@@ -158,6 +158,27 @@ public class VisibleAssertions extends AnsiSupport {
     }
 
     /**
+     * Assert that an actual value is not equal to an expected value.
+     *
+     * Equality is tested with the standard Object equals() method, unless both values are null.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param expected the expected value
+     * @param actual the actual value
+     */
+    public static void assertNotEquals(String message, Object expected, Object actual) {
+        if (expected == null && actual == null) {
+            fail(message);
+        } else if (expected != null && expected.equals(actual)) {
+            fail(message);
+        } else {
+            pass(message);
+        }
+    }
+
+    /**
      * Assert that a value is null.
      *
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.

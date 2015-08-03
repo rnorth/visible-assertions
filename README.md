@@ -63,6 +63,7 @@ Other simple assertion methods provided are:
 * *assertFalse*
 * *assertNull*
 * *assertNotNull*
+* *assertNotEquals*
 * *assertSame*
 
 ### Hamcrest
