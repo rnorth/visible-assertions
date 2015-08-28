@@ -259,6 +259,22 @@ public class VisibleAssertionsTest {
     }
 
     @Test
+    public void testAssertThrowsWhenNoExceptionInRunnable() {
+        try {
+            assertThrows("It throws a NPE", NullPointerException.class, new Runnable() {
+                public void run() {
+                    // don't throw
+                    return;
+                }
+            });
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+
+        assert getCapturedStdOut().contains("✘ It throws a NPE");
+    }
+
+    @Test
     public void testAssertThrowsWhenWrongException() {
 
         try {

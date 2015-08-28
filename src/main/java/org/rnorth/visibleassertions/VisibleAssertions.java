@@ -278,9 +278,35 @@ public class VisibleAssertions extends AnsiSupport {
      * @param exceptionClass the expected exception class
      * @param callable a Callable to invoke
      */
-    public static void assertThrows(String message, Class<? extends Exception> exceptionClass, Callable callable) {
+    public static <T> void assertThrows(String message, Class<? extends Exception> exceptionClass, Callable<T> callable) {
+        T result;
         try {
-            callable.call();
+            result = callable.call();
+            fail(message, "No exception was thrown (expected " + exceptionClass.getSimpleName() + " but '" + result + "' was returned instead)");
+        } catch (Exception e) {
+            if (!e.getClass().equals(exceptionClass)) {
+                fail(message, e.getClass().getSimpleName() + " was thrown instead of " + exceptionClass.getSimpleName());
+            }
+        }
+    }
+
+    /**
+     * Assert that a given runnable throws an exception of a particular class.
+     *
+     * The assertion passes if the runnable throws exactly the same class of exception (not a subclass).
+     *
+     * If the runnable doesn't throw an exception at all, or if another class of exception is thrown, the assertion
+     * fails.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param exceptionClass the expected exception class
+     * @param runnable a Runnable to invoke
+     */
+    public static void assertThrows(String message, Class<? extends Exception> exceptionClass, Runnable runnable) {
+        try {
+            runnable.run();
             fail(message, "No exception was thrown (expected " + exceptionClass.getSimpleName() + ")");
         } catch (Exception e) {
             if (!e.getClass().equals(exceptionClass)) {
