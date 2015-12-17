@@ -61,7 +61,7 @@ Additionally, when something is perhaps equivalent in value but not in type, add
 This can be useful in cases where a simple type error has crept in to test code, e.g.:
 
 <span style='color:red'>&nbsp;&nbsp;&nbsp;&nbsp;✘ The number of sales is returned correctly</span><br />
-<span style='color:orange'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'42' \\\[java.lang.Integer] does not equal expected '42' \\\[java.math.BigInteger]</span>
+<span style='color:orange'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'42' \[java.lang.Integer] does not equal expected '42' \[java.math.BigInteger]</span>
 
 Other simple assertion methods provided are:
 
