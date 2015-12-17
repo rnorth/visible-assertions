@@ -57,6 +57,12 @@ unless it isn't:
 <span style='color:red'>&nbsp;&nbsp;&nbsp;&nbsp;✘ The sky is blue</span><br />
 <span style='color:orange'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'PURPLE' does not equal expected 'BLUE'</span>
 
+Additionally, when something is perhaps equivalent in value but not in type, additional output will provide a hint.
+This can be useful in cases where a simple type error has crept in to test code, e.g.:
+
+<span style='color:red'>&nbsp;&nbsp;&nbsp;&nbsp;✘ The number of sales is returned correctly</span><br />
+<span style='color:orange'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'42' \\\[java.lang.Integer] does not equal expected '42' \\\[java.math.BigInteger]</span>
+
 Other simple assertion methods provided are:
 
 * *assertTrue*
