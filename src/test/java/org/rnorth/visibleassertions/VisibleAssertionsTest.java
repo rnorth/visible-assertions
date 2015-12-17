@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.util.concurrent.Callable;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -105,6 +106,28 @@ public class VisibleAssertionsTest {
         }
         assert getCapturedStdOut().contains("✘ it should be equal");
         assert getCapturedStdOut().contains("'A' does not equal expected 'B'");
+    }
+
+    @Test
+    public void testNonEqualsAssertionForDifferentTypesSameValue() {
+        try {
+            assertEquals("it should be equal", 1L, 1);
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be equal");
+        assert getCapturedStdOut().contains("'1' [java.lang.Integer] does not equal expected '1' [java.lang.Long]");
+    }
+
+    @Test
+    public void testNonEqualsAssertionForDifferentTypesSameValueForNonBoxedNonPrimitiveTypes() {
+        try {
+            assertEquals("it should be equal", new BigDecimal(1), 1);
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be equal");
+        assert getCapturedStdOut().contains("'1' [java.lang.Integer] does not equal expected '1' [java.math.BigDecimal]");
     }
 
     @Test

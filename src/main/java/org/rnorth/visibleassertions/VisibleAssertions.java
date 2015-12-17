@@ -148,10 +148,14 @@ public class VisibleAssertions extends AnsiSupport {
      * @param actual the actual value
      */
     public static void assertEquals(String message, Object expected, Object actual) {
-        if (expected == null && actual == null) {
+        if (areBothNull(expected, actual)) {
             pass(message);
-        } else if (expected != null && expected.equals(actual)) {
+        } else if (isObjectEquals(expected, actual)) {
             pass(message);
+        } else if (isObjectStringEqualsButDifferentType(expected, actual)) {
+            String actualClass = actual.getClass().getCanonicalName();
+            String expectedClass = expected.getClass().getCanonicalName();
+            fail(message, "'" + actual + "' [" + actualClass + "] does not equal expected '" + expected + "' [" + expectedClass + "]");
         } else {
             fail(message, "'" + actual + "' does not equal expected '" + expected + "'");
         }
@@ -169,13 +173,33 @@ public class VisibleAssertions extends AnsiSupport {
      * @param actual the actual value
      */
     public static void assertNotEquals(String message, Object expected, Object actual) {
-        if (expected == null && actual == null) {
+        if (areBothNull(expected, actual)) {
             fail(message);
-        } else if (expected != null && expected.equals(actual)) {
+        } else if (isObjectEquals(expected, actual)) {
             fail(message);
         } else {
             pass(message);
         }
+    }
+
+    private static boolean areBothNull(Object expected, Object actual) {
+        return expected == null && actual == null;
+    }
+
+    private static boolean isObjectEquals(Object expected, Object actual) {
+        return expected != null && expected.equals(actual);
+    }
+
+    private static boolean isObjectStringEqualsButDifferentType(Object expected, Object actual) {
+
+        if (expected == null || actual == null) {
+            return false;
+        }
+
+        String expectedAsString = String.valueOf(expected);
+        String actualAsString = String.valueOf(actual);
+
+        return actualAsString.equals(expectedAsString);
     }
 
     /**
