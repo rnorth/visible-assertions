@@ -148,6 +148,10 @@ public class VisibleAssertions extends AnsiSupport {
      * @param actual the actual value
      */
     public static void assertEquals(String message, Object expected, Object actual) {
+
+        String expectedInQuotes = inQuotesIfNotNull(expected);
+        String actualInQuotes   = inQuotesIfNotNull(actual);
+
         if (areBothNull(expected, actual)) {
             pass(message);
         } else if (isObjectEquals(expected, actual)) {
@@ -155,9 +159,9 @@ public class VisibleAssertions extends AnsiSupport {
         } else if (isObjectStringEqualsButDifferentType(expected, actual)) {
             String actualClass = actual.getClass().getCanonicalName();
             String expectedClass = expected.getClass().getCanonicalName();
-            fail(message, "'" + actual + "' [" + actualClass + "] does not equal expected '" + expected + "' [" + expectedClass + "]");
+            fail(message, actualInQuotes + " [" + actualClass + "] does not equal expected " + expectedInQuotes + " [" + expectedClass + "]");
         } else {
-            fail(message, "'" + actual + "' does not equal expected '" + expected + "'");
+            fail(message, actualInQuotes + " does not equal expected " + expectedInQuotes);
         }
     }
 
@@ -200,6 +204,10 @@ public class VisibleAssertions extends AnsiSupport {
         String actualAsString = String.valueOf(actual);
 
         return actualAsString.equals(expectedAsString);
+    }
+
+    private static String inQuotesIfNotNull(Object value) {
+        return value == null ? "null" : "'" + String.valueOf(value) + "'";
     }
 
     /**
@@ -246,10 +254,14 @@ public class VisibleAssertions extends AnsiSupport {
      * @param actual the actual value
      */
     public static void assertSame(String message, Object expected, Object actual) {
+
+        String expectedInQuotes = inQuotesIfNotNull(expected);
+        String actualInQuotes   = inQuotesIfNotNull(actual);
+
         if (expected == actual) {
             pass(message);
         } else {
-            fail(message, "'" + actual + "' is not the same (!=) as expected '" + expected + "'");
+            fail(message, actualInQuotes + " is not the same (!=) as expected " + expectedInQuotes);
         }
     }
 

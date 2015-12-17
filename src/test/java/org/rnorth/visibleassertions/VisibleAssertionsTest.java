@@ -83,7 +83,7 @@ public class VisibleAssertionsTest {
         } catch (AssertionError expected) {
         }
         assert getCapturedStdOut().contains("✘ it should be equal");
-        assert getCapturedStdOut().contains("'A' does not equal expected 'null'");
+        assert getCapturedStdOut().contains("'A' does not equal expected null");
     }
 
     @Test
@@ -94,7 +94,7 @@ public class VisibleAssertionsTest {
         } catch (AssertionError expected) {
         }
         assert getCapturedStdOut().contains("✘ it should be equal");
-        assert getCapturedStdOut().contains("'null' does not equal expected 'A'");
+        assert getCapturedStdOut().contains("null does not equal expected 'A'");
     }
 
     @Test
@@ -226,6 +226,28 @@ public class VisibleAssertionsTest {
         }
         assert getCapturedStdOut().contains("✘ it should be the same");
         assert getCapturedStdOut().contains("'B' is not the same (!=) as expected 'A'");
+    }
+
+    @Test
+    public void testFailingSameAssertionForNullExpected() {
+        try {
+            assertSame("it should be the same", null, "B");
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be the same");
+        assert getCapturedStdOut().contains("'B' is not the same (!=) as expected null");
+    }
+
+    @Test
+    public void testFailingSameAssertionForNullActual() {
+        try {
+            assertSame("it should be the same", "A", null);
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be the same");
+        assert getCapturedStdOut().contains("null is not the same (!=) as expected 'A'");
     }
 
     @Test
