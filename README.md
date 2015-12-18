@@ -1,6 +1,6 @@
 # Visible Assertions
 
-> Alternative to JUnit assertions that provide a more insightful log narrative for your tests
+> Alternative to JUnit assertions that provides a more insightful log narrative for your tests
 
 <img src="screenshot.png" width="100%" alt="Screenshot showing example output"/>
 
