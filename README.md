@@ -1,6 +1,6 @@
 # Visible Assertions
 
-> Visible Assertions is a Java library that provides a more insightful, fun, log narrative for automated test suites.
+> Alternative to JUnit assertions that provide a more insightful log narrative for your tests
 
 <img src="screenshot.png" width="100%" alt="Screenshot showing example output"/>
 
