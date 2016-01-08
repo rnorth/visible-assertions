@@ -44,6 +44,7 @@ public class VisibleAssertionsTest {
 
     @After
     public void outputForDebugging() {
+        System.out.println("CAPTURED STDOUT:");
         System.out.println(getCapturedStdOut());
     }
 
