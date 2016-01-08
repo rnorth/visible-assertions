@@ -17,6 +17,7 @@
 package org.rnorth.visibleassertions;
 
 import jline.TerminalFactory;
+import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.PrintStream;
@@ -35,6 +36,15 @@ public class AnsiSupport {
     static PrintStream writer = System.out;
 
     protected synchronized static void initialize() {
+
+        try {
+            Class.forName("com.intellij.rt.execution.application.AppMain");
+            // Running in IntelliJ - disable ANSI output
+            Ansi.setEnabled(false);
+        } catch (ClassNotFoundException e) {
+            // Not running in IntelliJ - assume TTY detection works correctly
+        }
+
         AnsiConsole.systemInstall();
     }
 
