@@ -1,3 +1,7 @@
+## [1.0.5] - 2016-04-28
+
+* Remove version ranges for dependencies and make versions explicit
+
 ## [1.0.4] - 2015-12-17
 
 * Improve output for equals assertions where objects are string-equal but different types
