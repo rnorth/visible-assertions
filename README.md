@@ -107,7 +107,7 @@ While not strictly assertions, Visible Assertions also provides a handful of log
     <dependency>
         <groupId>org.rnorth</groupId>
         <artifactId>visible-assertions</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
     </dependency>
 
 ## License
