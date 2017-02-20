@@ -105,7 +105,7 @@ While not strictly assertions, Visible Assertions also provides a handful of log
 ## Maven dependency
 
     <dependency>
-        <groupId>org.rnorth</groupId>
+        <groupId>org.rnorth.visible-assertions</groupId>
         <artifactId>visible-assertions</artifactId>
         <version>1.0.5</version>
     </dependency>
