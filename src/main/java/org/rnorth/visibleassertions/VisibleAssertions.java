@@ -312,6 +312,7 @@ public class VisibleAssertions extends AnsiSupport {
      * @param message message to display alongside the assertion outcome
      * @param exceptionClass the expected exception class
      * @param callable a Callable to invoke
+     * @param <T> return type of the callable
      */
     public static <T> void assertThrows(String message, Class<? extends Exception> exceptionClass, Callable<T> callable) {
         T result;
@@ -323,6 +324,8 @@ public class VisibleAssertions extends AnsiSupport {
                 fail(message, e.getClass().getSimpleName() + " was thrown instead of " + exceptionClass.getSimpleName());
             }
         }
+
+        pass(message);
     }
 
     /**
@@ -348,6 +351,8 @@ public class VisibleAssertions extends AnsiSupport {
                 fail(message, e.getClass().getSimpleName() + " was thrown instead of " + exceptionClass.getSimpleName());
             }
         }
+
+        pass(message);
     }
 
     /**
