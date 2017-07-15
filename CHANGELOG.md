@@ -1,3 +1,8 @@
+
+## [2.0.0] - 2017-07-13
+
+* Remove Jansi to reduce likelihood of native lib class conflicts when used in Gradle projects. ANSI output is implemented within the library now, with pnr-posix providing isatty support.
+
 ## [1.0.5] - 2016-04-28
 
 * Remove version ranges for dependencies and make versions explicit
