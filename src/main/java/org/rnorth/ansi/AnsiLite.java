@@ -57,8 +57,6 @@ public class AnsiLite {
             && System.getenv("MSYSTEM") != null
             && System.getenv("MSYSTEM").startsWith("MINGW");
 
-    private static final boolean IS_TTY = POSIX.isatty(1) == 0;
-
     private AnsiLite(String code, Object... s) {
         this.code = code;
         this.s = s;
@@ -161,6 +159,12 @@ public class AnsiLite {
 
     private boolean isEnabled() {
 
+        /* Allow ANSI support to be forced on or off (by setting -Dvisibleassertions.ansi.enabled=true|false) */
+        if (System.getProperty("visibleassertions.ansi.enabled") != null) {
+            return Boolean.getBoolean("visibleassertions.ansi.enabled");
+        }
+
+        /* Emulate behaviour of Jansi library for compatibility */
         if (Boolean.getBoolean("jansi.strip")) {
             return false;
         }
@@ -173,6 +177,8 @@ public class AnsiLite {
             return true;
         }
 
-        return IS_TTY && ((!IS_WINDOWS) || (IS_CYGWIN || IS_MINGW));
+        boolean isTty = POSIX.isatty(1) == 0;
+
+        return isTty && ((!IS_WINDOWS) || (IS_CYGWIN || IS_MINGW));
     }
 }
