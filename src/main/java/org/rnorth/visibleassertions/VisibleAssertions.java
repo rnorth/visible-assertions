@@ -26,7 +26,7 @@ import static org.rnorth.ansi.AnsiLite.*;
 
 /**
  * Assertions for use in Java tests, with contextual information on each assertion performed.
- *
+ * <p>
  * Output is to stdout, and is coloured if the terminal supports it.
  *
  * @author rnorth
@@ -46,7 +46,7 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Log an informational message.
-     *
+     * <p>
      * The output will be in white, following an 'i' symbol.
      *
      * @param message message to output
@@ -57,7 +57,7 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Log a warning message.
-     *
+     * <p>
      * The output will be in yellow, following a '!' symbol.
      *
      * @param message message to output
@@ -68,7 +68,7 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Log a contextual message, in the style of a 'dividing line' in the test output.
-     *
+     * <p>
      * The output will be in grey, surrounded by a horizontal line the full width of the current terminal (or 80 chars).
      *
      * @param context contextual message to output.
@@ -79,24 +79,24 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Log a contextual message, in the style of a 'dividing line' in the test output.
-     *
+     * <p>
      * The output will be in grey, surrounded by a horizontal line the full width of the current terminal (or 80 chars).
      *
      * @param context contextual message to output
-     * @param indent number of space characters to indent this line by
+     * @param indent  number of space characters to indent this line by
      */
     public static void context(CharSequence context, int indent) {
 
         StringBuilder sb = new StringBuilder();
-        for (int i=0; i<indent; i++) sb.append(" ");
-        for (int i=0; i<4; i++) sb.append(CONTEXT_MARK);
+        for (int i = 0; i < indent; i++) sb.append(" ");
+        for (int i = 0; i < 4; i++) sb.append(CONTEXT_MARK);
 
         sb.append(" ");
         sb.append(context);
 
         int terminalWidth = terminalWidth();
         sb.append(" ");
-        for (int i=sb.length(); i<terminalWidth; i++) {
+        for (int i = sb.length(); i < terminalWidth; i++) {
             sb.append(CONTEXT_MARK);
         }
 
@@ -105,11 +105,11 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that a value is true.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
      * @param message message to display alongside the assertion outcome
-     * @param value value to test
+     * @param value   value to test
      */
     public static void assertTrue(String message, boolean value) {
         if (value) {
@@ -121,11 +121,11 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that a value is false.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
      * @param message message to display alongside the assertion outcome
-     * @param value value to test
+     * @param value   value to test
      */
     public static void assertFalse(String message, boolean value) {
         if (!value) {
@@ -137,19 +137,19 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that an actual value is equal to an expected value.
-     *
+     * <p>
      * Equality is tested with the standard Object equals() method, unless both values are null.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message  message to display alongside the assertion outcome
      * @param expected the expected value
-     * @param actual the actual value
+     * @param actual   the actual value
      */
     public static void assertEquals(String message, Object expected, Object actual) {
 
         String expectedInQuotes = inQuotesIfNotNull(expected);
-        String actualInQuotes   = inQuotesIfNotNull(actual);
+        String actualInQuotes = inQuotesIfNotNull(actual);
 
         if (areBothNull(expected, actual)) {
             pass(message);
@@ -166,17 +166,17 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that an actual value is visibly equal to an expected value, following conversion to a String via toString().
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message  message to display alongside the assertion outcome
      * @param expected the expected value
-     * @param actual the actual value
+     * @param actual   the actual value
      */
     public static void assertVisiblyEquals(String message, Object expected, Object actual) {
 
         String expectedInQuotes = inQuotesIfNotNull(expected);
-        String actualInQuotes   = inQuotesIfNotNull(actual);
+        String actualInQuotes = inQuotesIfNotNull(actual);
 
         if (areBothNull(expected, actual)) {
             pass(message);
@@ -190,18 +190,18 @@ public class VisibleAssertions extends AnsiSupport {
     /**
      * Assert that an actual value is approximately equal to an expected value - determined by whether the difference
      * between the two values is less than a provided epsilon value.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message  message to display alongside the assertion outcome
      * @param expected the expected value
-     * @param actual the actual value
-     * @param epsilon the allowable absolute difference between expected and actual values
+     * @param actual   the actual value
+     * @param epsilon  the allowable absolute difference between expected and actual values
      */
     public static void assertRoughlyEquals(String message, Double expected, Double actual, Double epsilon) {
 
         String expectedInQuotes = inQuotesIfNotNull(expected);
-        String actualInQuotes   = inQuotesIfNotNull(actual);
+        String actualInQuotes = inQuotesIfNotNull(actual);
 
         if (areBothNull(expected, actual)) {
             pass(message);
@@ -214,14 +214,14 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that an actual value is not equal to an expected value.
-     *
+     * <p>
      * Equality is tested with the standard Object equals() method, unless both values are null.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message  message to display alongside the assertion outcome
      * @param expected the expected value
-     * @param actual the actual value
+     * @param actual   the actual value
      */
     public static void assertNotEquals(String message, Object expected, Object actual) {
         if (areBothNull(expected, actual)) {
@@ -259,11 +259,11 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that a value is null.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
      * @param message message to display alongside the assertion outcome
-     * @param o value to test
+     * @param o       value to test
      */
     public static void assertNull(String message, Object o) {
         if (o == null) {
@@ -275,11 +275,11 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that a value is not null.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
      * @param message message to display alongside the assertion outcome
-     * @param o value to test
+     * @param o       value to test
      */
     public static void assertNotNull(String message, Object o) {
         if (o != null) {
@@ -291,19 +291,19 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that an actual value is the same object as an expected value.
-     *
+     * <p>
      * Sameness is tested with the == operator.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message  message to display alongside the assertion outcome
      * @param expected the expected value
-     * @param actual the actual value
+     * @param actual   the actual value
      */
     public static void assertSame(String message, Object expected, Object actual) {
 
         String expectedInQuotes = inQuotesIfNotNull(expected);
-        String actualInQuotes   = inQuotesIfNotNull(actual);
+        String actualInQuotes = inQuotesIfNotNull(actual);
 
         if (expected == actual) {
             pass(message);
@@ -314,7 +314,7 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Just fail with an AssertionError, citing a given message.
-     *
+     * <p>
      * A red cross will be shown.
      *
      * @param message message to display alongside the red cross
@@ -327,9 +327,9 @@ public class VisibleAssertions extends AnsiSupport {
      * Assert using a Hamcrest matcher.
      *
      * @param whatTheObjectIs what is the thing being tested, in a logical sense
-     * @param actual the actual value
-     * @param matcher a matcher to check the actual value against
-     * @param <T> class of the actual value
+     * @param actual          the actual value
+     * @param matcher         a matcher to check the actual value against
+     * @param <T>             class of the actual value
      */
     public static <T> void assertThat(String whatTheObjectIs, T actual, Matcher<? super T> matcher) {
         Description description = new StringDescription();
@@ -349,18 +349,18 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that a given callable throws an exception of a particular class.
-     *
+     * <p>
      * The assertion passes if the callable throws exactly the same class of exception (not a subclass).
-     *
+     * <p>
      * If the callable doesn't throw an exception at all, or if another class of exception is thrown, the assertion
      * fails.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message        message to display alongside the assertion outcome
      * @param exceptionClass the expected exception class
-     * @param callable a Callable to invoke
-     * @param <T> return type of the callable
+     * @param callable       a Callable to invoke
+     * @param <T>            return type of the callable
      */
     public static <T> void assertThrows(String message, Class<? extends Exception> exceptionClass, Callable<T> callable) {
         T result;
@@ -378,17 +378,17 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Assert that a given runnable throws an exception of a particular class.
-     *
+     * <p>
      * The assertion passes if the runnable throws exactly the same class of exception (not a subclass).
-     *
+     * <p>
      * If the runnable doesn't throw an exception at all, or if another class of exception is thrown, the assertion
      * fails.
-     *
+     * <p>
      * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
      *
-     * @param message message to display alongside the assertion outcome
+     * @param message        message to display alongside the assertion outcome
      * @param exceptionClass the expected exception class
-     * @param runnable a Runnable to invoke
+     * @param runnable       a Runnable to invoke
      */
     public static void assertThrows(String message, Class<? extends Exception> exceptionClass, Runnable runnable) {
         try {
@@ -405,13 +405,21 @@ public class VisibleAssertions extends AnsiSupport {
 
     /**
      * Indicate that something passed.
+     *
      * @param message message to display alongside a green tick
      */
     public static void pass(String message) {
+        if (Boolean.getBoolean("visibleassertions.silence") || Boolean.getBoolean("visibleassertions.silence.passes")) {
+            return;
+        }
         System.out.println("        " + green(TICK_MARK + " " + message));
     }
 
-    private static void fail(String message, String hint) {
+    public static void fail(String message, String hint) {
+        if (Boolean.getBoolean("visibleassertions.silence") || Boolean.getBoolean("visibleassertions.silence.failures")) {
+            return;
+        }
+
         System.out.println("        " + red(CROSS_MARK + " " + message));
 
         if (hint == null) {
