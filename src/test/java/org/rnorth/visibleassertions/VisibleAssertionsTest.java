@@ -80,6 +80,12 @@ public class VisibleAssertionsTest {
     }
 
     @Test
+    public void testVisiblyEqualsAssertion() {
+        assertVisiblyEquals("it should be equal", 1, 1L);
+        assert getCapturedStdOut().contains("✔ it should be equal");
+    }
+
+    @Test
     public void testOneNullEqualsAssertion() {
         try {
             assertEquals("it should be equal", null, "A");
@@ -135,6 +141,28 @@ public class VisibleAssertionsTest {
     }
 
     @Test
+    public void testNotVisiblyEqualsAssertion() {
+        try {
+            assertVisiblyEquals("it should be equal", new BigDecimal(2), 1);
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be equal");
+        assert getCapturedStdOut().contains("'1' after toString() does not equal expected '2'");
+    }
+
+    @Test
+    public void testNotVisiblyEqualsWithNull() {
+        try {
+            assertVisiblyEquals("it should be equal", null, 1);
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be equal");
+        assert getCapturedStdOut().contains("'1' after toString() does not equal expected null");
+    }
+
+    @Test
     public void testNotEqualsAssertion() {
         try {
             assertNotEquals("it should not be equal", "A", "A");
@@ -160,6 +188,35 @@ public class VisibleAssertionsTest {
     public void testNonNotEqualsAssertion() {
         assertNotEquals("it should not be equal", "B", "A");
         assert getCapturedStdOut().contains("✔ it should not be equal");
+    }
+
+    @Test
+    public void testRoughlyEqualsAssertion() {
+        assertRoughlyEquals("it should be equal", 1.9d, 1.9d, 0.1);
+        assert getCapturedStdOut().contains("✔ it should be equal");
+    }
+
+    @Test
+    public void testRoughlyEqualsAssertionWithRealDifferencePositive() {
+        assertRoughlyEquals("it should be equal", 1.9d, 1.91d, 0.1);
+        assert getCapturedStdOut().contains("✔ it should be equal");
+    }
+
+    @Test
+    public void testRoughlyEqualsAssertionWithRealDifferenceNegative() {
+        assertRoughlyEquals("it should be equal", 1.9d, 1.89d, 0.1);
+        assert getCapturedStdOut().contains("✔ it should be equal");
+    }
+
+    @Test
+    public void testRoughlyEqualsAssertionWithTooSmallEpsilon() {
+        try {
+            assertRoughlyEquals("it should be equal", 1.9d, 1.9d, 0.0);
+            failIfReachedHere();
+        } catch (AssertionError expected) {
+        }
+        assert getCapturedStdOut().contains("✘ it should be equal");
+        assert getCapturedStdOut().contains("'1.9' differs from expected '1.9' by more than allowed amount (0.0)");
     }
 
     @Test(expected = RuntimeException.class)

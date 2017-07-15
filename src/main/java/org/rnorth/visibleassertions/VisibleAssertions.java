@@ -165,6 +165,54 @@ public class VisibleAssertions extends AnsiSupport {
     }
 
     /**
+     * Assert that an actual value is visibly equal to an expected value, following conversion to a String via toString().
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param expected the expected value
+     * @param actual the actual value
+     */
+    public static void assertVisiblyEquals(String message, Object expected, Object actual) {
+
+        String expectedInQuotes = inQuotesIfNotNull(expected);
+        String actualInQuotes   = inQuotesIfNotNull(actual);
+
+        if (areBothNull(expected, actual)) {
+            pass(message);
+        } else if (isObjectEquals(String.valueOf(expected), String.valueOf(actual))) {
+            pass(message);
+        } else {
+            fail(message, actualInQuotes + " after toString() does not equal expected " + expectedInQuotes);
+        }
+    }
+
+    /**
+     * Assert that an actual value is approximately equal to an expected value - determined by whether the difference
+     * between the two values is less than a provided epsilon value.
+     *
+     * If the assertion passes, a green tick will be shown. If the assertion fails, a red cross will be shown.
+     *
+     * @param message message to display alongside the assertion outcome
+     * @param expected the expected value
+     * @param actual the actual value
+     * @param epsilon the allowable absolute difference between expected and actual values
+     */
+    public static void assertRoughlyEquals(String message, Double expected, Double actual, Double epsilon) {
+
+        String expectedInQuotes = inQuotesIfNotNull(expected);
+        String actualInQuotes   = inQuotesIfNotNull(actual);
+
+        if (areBothNull(expected, actual)) {
+            pass(message);
+        } else if (Math.abs(actual - expected) < epsilon) {
+            pass(message);
+        } else {
+            fail(message, actualInQuotes + " differs from expected " + expectedInQuotes + " by more than allowed amount (" + epsilon + ")");
+        }
+    }
+
+    /**
      * Assert that an actual value is not equal to an expected value.
      *
      * Equality is tested with the standard Object equals() method, unless both values are null.
