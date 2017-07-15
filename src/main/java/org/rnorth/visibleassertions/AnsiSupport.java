@@ -16,44 +16,13 @@
 
 package org.rnorth.visibleassertions;
 
-import jline.TerminalFactory;
-import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
-
-import java.io.PrintStream;
-
-import static org.fusesource.jansi.Ansi.ansi;
-
 /**
  * @author rnorth
  */
-@SuppressWarnings("UseOfSystemOutOrSystemErr")
-public class AnsiSupport {
+class AnsiSupport {
 
-    /**
-     * Package visible for testing
-     */
-    static PrintStream writer = System.out;
-
-    protected synchronized static void initialize() {
-
-        try {
-            Class.forName("com.intellij.rt.execution.application.AppMain");
-            // Running in IntelliJ - disable ANSI output
-            Ansi.setEnabled(false);
-        } catch (ClassNotFoundException e) {
-            // Not running in IntelliJ - assume TTY detection works correctly
-        }
-
-        AnsiConsole.systemInstall();
+    static int terminalWidth() {
+        // TODO: lookup via stty on *nix
+        return 80;
     }
-
-    public static void ansiPrintf(String s, Object... args) {
-        writer.printf(ansi().render(s).toString(), args);
-    }
-
-    public static int terminalWidth() {
-        return TerminalFactory.get().getWidth();
-    }
-
 }

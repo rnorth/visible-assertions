@@ -35,15 +35,18 @@ import static org.rnorth.visibleassertions.VisibleAssertions.*;
 public class VisibleAssertionsTest {
 
     private ByteArrayOutputStream stdOutBuffer;
+    private PrintStream originalStdOut;
 
     @Before
     public void setup() {
+        originalStdOut = System.out;
         stdOutBuffer = new ByteArrayOutputStream();
-        AnsiSupport.writer = new PrintStream(stdOutBuffer);
+        System.setOut(new PrintStream(stdOutBuffer));
     }
 
     @After
     public void outputForDebugging() {
+        System.setOut(originalStdOut);
         System.out.println("CAPTURED STDOUT:");
         System.out.println(getCapturedStdOut());
     }

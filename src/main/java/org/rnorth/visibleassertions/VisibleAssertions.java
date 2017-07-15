@@ -22,6 +22,8 @@ import org.hamcrest.StringDescription;
 
 import java.util.concurrent.Callable;
 
+import static org.rnorth.ansi.AnsiLite.*;
+
 /**
  * Assertions for use in Java tests, with contextual information on each assertion performed.
  *
@@ -50,8 +52,7 @@ public class VisibleAssertions extends AnsiSupport {
      * @param message message to output
      */
     public static void info(String message) {
-        initialize();
-        ansiPrintf("        @|white,bold " + INFO_MARK + " " + message + " |@\n");
+        System.out.println("        " + white(bright(INFO_MARK + " " + message)));
     }
 
     /**
@@ -62,8 +63,7 @@ public class VisibleAssertions extends AnsiSupport {
      * @param message message to output
      */
     public static void warn(String message) {
-        initialize();
-        ansiPrintf("        @|yellow,bold " + WARN_MARK + " " + message + " |@\n");
+        System.out.println("        " + yellow(bright(WARN_MARK + " " + message)));
     }
 
     /**
@@ -86,7 +86,6 @@ public class VisibleAssertions extends AnsiSupport {
      * @param indent number of space characters to indent this line by
      */
     public static void context(CharSequence context, int indent) {
-        initialize();
 
         StringBuilder sb = new StringBuilder();
         for (int i=0; i<indent; i++) sb.append(" ");
@@ -101,7 +100,7 @@ public class VisibleAssertions extends AnsiSupport {
             sb.append(CONTEXT_MARK);
         }
 
-        ansiPrintf("@|faint " + sb.toString() + " |@\n");
+        System.out.println(dim(sb.toString()));
     }
 
     /**
@@ -356,18 +355,16 @@ public class VisibleAssertions extends AnsiSupport {
      * @param message message to display alongside a green tick
      */
     public static void pass(String message) {
-        initialize();
-        ansiPrintf("        @|green " + TICK_MARK + " " + message + " |@\n");
+        System.out.println("        " + green(TICK_MARK + " " + message));
     }
 
     private static void fail(String message, String hint) {
-        initialize();
-        ansiPrintf("        @|red " + CROSS_MARK + " " + message + " |@\n");
+        System.out.println("        " + red(CROSS_MARK + " " + message));
 
         if (hint == null) {
             throw new AssertionError(message);
         } else {
-            ansiPrintf("            @|yellow " + hint + " |@\n");
+            System.out.println("            " + yellow(hint));
             throw new AssertionError(message + ": " + hint);
         }
 
