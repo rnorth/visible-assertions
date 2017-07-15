@@ -107,8 +107,22 @@ While not strictly assertions, Visible Assertions also provides a handful of log
     <dependency>
         <groupId>org.rnorth.visible-assertions</groupId>
         <artifactId>visible-assertions</artifactId>
-        <version>1.0.5</version>
+        <version>2.0.0</version>
     </dependency>
+
+## Controlling output
+
+Output may be controlled via system properties:
+
+* `visibleassertions.silence`: if set to `true`, assertions will still be enforced but no output will be produced.
+* `visibleassertions.silence.passes`: if set to `true`, assertion passes will not be output.
+* `visibleassertions.silence.failures`: if set to `true`, assertion failures will not be output.
+
+The library will attempt to detect terminal capabilities to determine whether it is appropriate to use ANSI (coloured) output.
+If it is necessary to override this for some reason, the `visibleassertions.ansi.enabled` may be set:
+
+* `-Dvisibleassertions.ansi.enabled=true`: ANSI output will always be produced 
+* `-Dvisibleassertions.ansi.enabled=false`: ANSI output will never be produced 
 
 ## License
 

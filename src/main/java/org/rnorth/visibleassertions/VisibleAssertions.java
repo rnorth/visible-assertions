@@ -52,6 +52,10 @@ public class VisibleAssertions extends AnsiSupport {
      * @param message message to output
      */
     public static void info(String message) {
+        if (Boolean.getBoolean("visibleassertions.silence")) {
+            return;
+        }
+
         System.out.println("        " + white(bright(INFO_MARK + " " + message)));
     }
 
@@ -63,6 +67,10 @@ public class VisibleAssertions extends AnsiSupport {
      * @param message message to output
      */
     public static void warn(String message) {
+        if (Boolean.getBoolean("visibleassertions.silence")) {
+            return;
+        }
+
         System.out.println("        " + yellow(bright(WARN_MARK + " " + message)));
     }
 
@@ -86,6 +94,9 @@ public class VisibleAssertions extends AnsiSupport {
      * @param indent  number of space characters to indent this line by
      */
     public static void context(CharSequence context, int indent) {
+        if (Boolean.getBoolean("visibleassertions.silence")) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i++) sb.append(" ");
