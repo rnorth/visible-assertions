@@ -144,6 +144,6 @@ This project is extracted from [TestPackage](http://testpackage.org) by the same
 
 ## Copyright
 
-Copyright (c) 2015 Richard North.
+Copyright (c) 2015-2017 Richard North.
 
 See [AUTHORS](AUTHORS) for contributors.
