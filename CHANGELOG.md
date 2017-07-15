@@ -2,7 +2,8 @@
 ## [2.0.0] - 2017-07-13
 
 * Remove Jansi to reduce likelihood of native lib class conflicts when used in Gradle projects. ANSI output is implemented within the library now, with pnr-posix providing isatty support.
-* 
+* Allow system properties to be used to control visibility of output (see [README](README.md)).
+* Add `assertVisiblyEquals` and `assertRoughlyEquals` methods for approximate matching.
 
 ## [1.0.5] - 2016-04-28
 
@@ -25,6 +26,7 @@
 
 * Initial release
 
+[2.0.0]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.0.0
 [1.0.4]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.4
 [1.0.3]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.3
 [1.0.2]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.2
