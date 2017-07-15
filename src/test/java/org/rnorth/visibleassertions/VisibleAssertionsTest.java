@@ -398,6 +398,54 @@ public class VisibleAssertionsTest {
         assert getCapturedStdOut().contains("ArrayIndexOutOfBoundsException was thrown instead of NullPointerException");
     }
 
+    @Test
+    public void testSilencingOfPasses() {
+        System.setProperty("visibleassertions.silence.passes", "true");
+
+        try {
+            pass("Something passed");
+            fail("Something failed");
+        } catch (AssertionError expected) {
+        }
+
+        assert !getCapturedStdOut().contains("Something passed");
+        assert getCapturedStdOut().contains("Something failed");
+
+        System.setProperty("visibleassertions.silence.passes", "false");
+    }
+
+    @Test
+    public void testSilencingOfFailures() {
+        System.setProperty("visibleassertions.silence.failures", "true");
+
+        try {
+            pass("Something passed");
+            fail("Something failed");
+        } catch (AssertionError expected) {
+        }
+
+        assert getCapturedStdOut().contains("Something passed");
+        assert !getCapturedStdOut().contains("Something failed");
+
+        System.setProperty("visibleassertions.silence.failures", "false");
+    }
+
+    @Test
+    public void testSilencingOfEverything() {
+        System.setProperty("visibleassertions.silence", "true");
+
+        try {
+            pass("Something passed");
+            fail("Something failed");
+        } catch (AssertionError expected) {
+        }
+
+        assert !getCapturedStdOut().contains("Something passed");
+        assert !getCapturedStdOut().contains("Something failed");
+
+        System.setProperty("visibleassertions.silence", "false");
+    }
+
     private void failIfReachedHere() {
         throw new IllegalStateException();
     }
