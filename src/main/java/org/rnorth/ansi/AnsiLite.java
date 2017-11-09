@@ -177,7 +177,14 @@ public class AnsiLite {
             return true;
         }
 
-        boolean isTty = POSIX.isatty(1) == 0;
+        boolean isTty;
+
+        try {
+            isTty = POSIX.isatty(1) == 0;
+        } catch (NoSuchMethodError e) {
+            // Fallback if jnr-posix on classpath is not compatible with the version we assumed
+            isTty = false;
+        }
 
         return isTty && ((!IS_WINDOWS) || (IS_CYGWIN || IS_MINGW));
     }
