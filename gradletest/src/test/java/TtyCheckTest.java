@@ -1,5 +1,3 @@
-package org.rnorth.visibleassertions;
-
 import org.fusesource.jansi.internal.CLibrary;
 import org.junit.Test;
 import org.rnorth.ansi.CapabilityDetection;

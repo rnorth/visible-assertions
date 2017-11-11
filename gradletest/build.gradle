@@ -1,0 +1,16 @@
+apply plugin: 'java'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    mavenLocal()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.rnorth.visible-assertions:visible-assertions:0-SNAPSHOT'
+
+    testCompile 'org.fusesource.jansi:jansi:1.11'
+    testCompile 'junit:junit:4.12'
+}
+

@@ -16,7 +16,8 @@ env:
 install: mvn install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
-  - mvn -B -P !build-extras test
+  - mvn -B -P !build-extras install
+  - cd gradletest && ./gradlew test
 
 deploy:
   provider: script

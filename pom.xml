@@ -35,6 +35,7 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Only used to test consistency of Tty Detection -->
         <dependency>
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
@@ -43,9 +44,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.jnr</groupId>
-            <artifactId>jnr-posix</artifactId>
-            <version>3.0.41</version>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>4.5.0</version>
         </dependency>
     </dependencies>
 

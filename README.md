@@ -118,7 +118,12 @@ Output may be controlled via system properties:
 * `visibleassertions.silence.passes`: if set to `true`, assertion passes will not be output.
 * `visibleassertions.silence.failures`: if set to `true`, assertion failures will not be output.
 
-The library will attempt to detect terminal capabilities to determine whether it is appropriate to use ANSI (coloured) output.
+The library will attempt to detect terminal capabilities to determine whether it is appropriate to use ANSI (coloured) output. The basic logic is:
+
+* If STDOUT is a TTY, ANSI coloured output will be used. Otherwise, ANSI colour codes will only be output if:
+* running under Maven (latest versions of Maven will strip/preserve as appropriate)
+* running under IntelliJ IDEA
+
 If it is necessary to override this for some reason, the `visibleassertions.ansi.enabled` may be set:
 
 * `-Dvisibleassertions.ansi.enabled=true`: ANSI output will always be produced 
