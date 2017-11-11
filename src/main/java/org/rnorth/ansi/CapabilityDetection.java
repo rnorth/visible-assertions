@@ -8,6 +8,10 @@ import com.sun.jna.Platform;
 public class CapabilityDetection {
     private static final int STDOUT_FILENO = 1;
 
+    private CapabilityDetection() {
+        // Utility class - don't allow construction;
+    }
+
     public static boolean isUnderIDEA() {
         // Rough check for whether or not we're running in IDEA
         String classPath = System.getProperty("java.class.path");
