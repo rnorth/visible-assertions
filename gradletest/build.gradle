@@ -3,6 +3,7 @@ apply plugin: 'java'
 // In this section you declare where to find the dependencies of your project
 repositories {
     mavenLocal()
+    mavenCentral()
 }
 
 // In this section you declare the dependencies for your production and test code
