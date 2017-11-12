@@ -17,7 +17,7 @@ install: ./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=t
 
 script:
   - ./mvnw -P !build-extras install
-  - cd gradletest && ./gradlew test
+  - pushd gradletest && ./gradlew test && popd
 
 deploy:
   provider: script
