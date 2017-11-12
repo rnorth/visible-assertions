@@ -13,10 +13,11 @@ env:
     - secure: "SbA/QbPrr+F3hQv5/mGMtnKcmiV/2M04zgTDNXvBJe+r/4r1SYIeub3JZX3QYkVG7UIxxB3Pph5/OpvXDFq6x8scbLE9tgXSTVo/EtjQWtd5f1rC+DVipa5xO1kdwMOLNPcgxCWAh6v7HlUad7esKHWR0kGc8h/12G76UWc54Bs820/FKROMaYs4G2lTPxTYTTFRln+xQ0/pXDjbG9AIGue3WXQ0wlAB6HYmhvILSnF2UQAy1DLSmMAnLQspTjDD3h4Thwry6ymGbSWLCVB4jq2mWt1wM7iZyTSVh+xJdnVUvH7i3SlIX0zfkFOiNPHhjeTTKGNyC+DS76yhFe4KAyitEiZtKrNlE68X2Grd0uvwMHDzk/Y6QDlPayAnUK4KhH+g631ZthdovuuNgIefcPG+vpNqe7bjivb6/rUIi8s2/b2X/0rOqMrvIMSppJrou0qJ9ZOXIAu7H5YeBkI+3ib4yywfCNvSgo592fY00d9s0kk6hUdyZ8Q10kB2VqjVfXZxYPYU25WuyX7k7/BsjK/wsJ/xsCpdkSxiJjD7W+BzqFUgDEF9QLRsxIC8NKUEuzh8kRpHdzY9rcM623b90Z8BmBttQKZtYLRNz9UJsKLZiw881p6JMI0FxP3WK8ocp7PUgO1x3rNS6cgThuOufs0SoGeGT+xr9bGx5u8oImU="
     - # ^^ GPG_PASSPHRASE
 
-install: mvn install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+install: ./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
-  - mvn -B -P !build-extras test
+  - ./mvnw -P !build-extras install
+  - cd gradletest && ./gradlew test
 
 deploy:
   provider: script

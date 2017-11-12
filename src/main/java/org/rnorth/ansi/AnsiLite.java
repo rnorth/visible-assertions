@@ -1,9 +1,8 @@
 package org.rnorth.ansi;
 
-import jnr.posix.POSIX;
-import jnr.posix.POSIXFactory;
-
-import java.util.Locale;
+import static org.rnorth.ansi.CapabilityDetection.isTty;
+import static org.rnorth.ansi.CapabilityDetection.isUnderIDEA;
+import static org.rnorth.ansi.CapabilityDetection.isUnderMaven;
 
 /**
  * A simple ANSI colour output formatter. It is quite simplistic in implementation, and less efficient than it could be.
@@ -42,20 +41,6 @@ public class AnsiLite {
 
     private final String code;
     private final Object[] s;
-
-    private static final POSIX POSIX = POSIXFactory.getPOSIX();
-
-
-    private static final boolean IS_WINDOWS = System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("win");
-
-    private static final boolean IS_CYGWIN = IS_WINDOWS
-            && System.getenv("PWD") != null
-            && System.getenv("PWD").startsWith("/")
-            && !"cygwin".equals(System.getenv("TERM"));
-
-    private static final boolean IS_MINGW = IS_WINDOWS
-            && System.getenv("MSYSTEM") != null
-            && System.getenv("MSYSTEM").startsWith("MINGW");
 
     private AnsiLite(String code, Object... s) {
         this.code = code;
@@ -173,12 +158,14 @@ public class AnsiLite {
             return true;
         }
 
+        if (Boolean.getBoolean("ansi.passthrough")) {
+            return true;
+        }
+
         if (Boolean.getBoolean("jansi.force")) {
             return true;
         }
 
-        boolean isTty = POSIX.isatty(1) == 0;
-
-        return isTty && ((!IS_WINDOWS) || (IS_CYGWIN || IS_MINGW));
+        return isUnderIDEA() || isUnderMaven() || isTty();
     }
 }

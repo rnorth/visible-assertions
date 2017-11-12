@@ -1,4 +1,8 @@
 
+## [2.1.0] - 2017-11-11
+
+* Switch TTY detection to be based on JNA, for smaller dependency chain. Special case behaviour is in place for tests running in IntelliJ IDEA and Maven, which are both capable of correctly handling ANSI output even though there is not a TTY.
+
 ## [2.0.0] - 2017-07-13
 
 * Remove Jansi to reduce likelihood of native lib class conflicts when used in Gradle projects. ANSI output is implemented within the library now, with pnr-posix providing isatty support.
