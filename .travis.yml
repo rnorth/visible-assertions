@@ -16,7 +16,7 @@ env:
 install: ./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
-  - ./mvnw -B -P !build-extras install
+  - ./mvnw -P !build-extras install
   - cd gradletest && ./gradlew test
 
 deploy:
