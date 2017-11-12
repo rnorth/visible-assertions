@@ -19,9 +19,14 @@ public class CapabilityDetection {
     }
 
     public static boolean isUnderMaven() {
+        // Rough check for whether or not we're running in a Maven build
+        return  findClass("org.apache.maven.surefire.booter.ForkedBooter") ||
+                findClass("org.codehaus.plexus.classworlds.launcher.Launcher");
+    }
+
+    private static boolean findClass(String className) {
         try {
-            // Rough check for whether or not we're running in a Maven build
-            Class.forName("org.codehaus.plexus.classworlds.launcher.Launcher");
+            Class.forName(className);
             return true;
         } catch (Exception ignored) {
             return false;
@@ -37,7 +42,7 @@ public class CapabilityDetection {
         // Check native isatty using JNA. If we fail for any reason, assume no TTY and carry on.
         try {
             return CLib.INSTANCE.isatty(STDOUT_FILENO) != 0;
-        } catch (Exception ignored) {
+        } catch (Throwable ignored) {
             return false;
         }
     }
