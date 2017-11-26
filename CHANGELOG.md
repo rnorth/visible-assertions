@@ -1,4 +1,8 @@
 
+## [2.2.0] - 2017-11-26
+
+* Add special case behaviour for tests running in Gradle, which is also capable of correctly handling/filtering ANSI output.
+
 ## [2.1.0] - 2017-11-11
 
 * Switch TTY detection to be based on JNA, for smaller dependency chain. Special case behaviour is in place for tests running in IntelliJ IDEA and Maven, which are both capable of correctly handling ANSI output even though there is not a TTY.
@@ -30,6 +34,8 @@
 
 * Initial release
 
+[2.2.0]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.2.0
+[2.1.0]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.1.0
 [2.0.0]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.0.0
 [1.0.4]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.4
 [1.0.3]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.3

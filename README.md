@@ -107,7 +107,7 @@ While not strictly assertions, Visible Assertions also provides a handful of log
     <dependency>
         <groupId>org.rnorth.visible-assertions</groupId>
         <artifactId>visible-assertions</artifactId>
-        <version>2.0.0</version>
+        <version>2.2.0</version>
     </dependency>
 
 ## Controlling output
@@ -122,6 +122,7 @@ The library will attempt to detect terminal capabilities to determine whether it
 
 * If STDOUT is a TTY, ANSI coloured output will be used. Otherwise, ANSI colour codes will only be output if:
 * running under Maven (latest versions of Maven will strip/preserve as appropriate)
+* running under Gradle (latest versions of Gradle will strip/preserve as appropriate)
 * running under IntelliJ IDEA
 
 If it is necessary to override this for some reason, the `visibleassertions.ansi.enabled` may be set:
