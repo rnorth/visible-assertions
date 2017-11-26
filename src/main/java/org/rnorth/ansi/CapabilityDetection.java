@@ -24,6 +24,19 @@ public class CapabilityDetection {
                 findClass("org.codehaus.plexus.classworlds.launcher.Launcher");
     }
 
+    public static boolean isUnderGradle() {
+        // Rough check for whether or not we're running in a Gradle build
+        for (String key : System.getenv().keySet()) {
+            if (key.startsWith("JAVA_MAIN_CLASS")) {
+                final String value = System.getenv(key);
+                if (value != null && value.contains("org.gradle")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private static boolean findClass(String className) {
         try {
             Class.forName(className);
@@ -46,6 +59,5 @@ public class CapabilityDetection {
             return false;
         }
     }
-
 }
 

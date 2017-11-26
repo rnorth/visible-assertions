@@ -11,6 +11,7 @@ public class TtyCheckTest {
     public void checkConsistentTtyDetection() {
         info("isTty=" + CapabilityDetection.isTty());
         info("isUnderMaven=" + CapabilityDetection.isUnderMaven());
+        info("isUnderGradle=" + CapabilityDetection.isUnderGradle());
         info("isUnderIDEA=" + CapabilityDetection.isUnderIDEA());
 
         assertEquals("JNA and Jansi detect tty the same",

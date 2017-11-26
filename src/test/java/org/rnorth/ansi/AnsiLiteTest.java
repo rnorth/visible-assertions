@@ -7,9 +7,6 @@ import org.junit.Test;
 import static org.rnorth.ansi.AnsiLite.*;
 import static org.rnorth.visibleassertions.VisibleAssertions.assertEquals;
 
-/**
- * TODO: Javadocs
- */
 public class AnsiLiteTest {
     @Before
     public void setUp() throws Exception {

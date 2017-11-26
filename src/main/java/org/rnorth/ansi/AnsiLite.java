@@ -1,8 +1,6 @@
 package org.rnorth.ansi;
 
-import static org.rnorth.ansi.CapabilityDetection.isTty;
-import static org.rnorth.ansi.CapabilityDetection.isUnderIDEA;
-import static org.rnorth.ansi.CapabilityDetection.isUnderMaven;
+import static org.rnorth.ansi.CapabilityDetection.*;
 
 /**
  * A simple ANSI colour output formatter. It is quite simplistic in implementation, and less efficient than it could be.
@@ -166,6 +164,6 @@ public class AnsiLite {
             return true;
         }
 
-        return isUnderIDEA() || isUnderMaven() || isTty();
+        return isUnderIDEA() || isUnderMaven() || isUnderGradle() || isTty();
     }
 }
