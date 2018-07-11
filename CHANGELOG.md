@@ -1,4 +1,8 @@
 
+## [2.1.1] - 2018-07-11
+
+* Bump JNA version
+
 ## [2.1.0] - 2017-11-11
 
 * Switch TTY detection to be based on JNA, for smaller dependency chain. Special case behaviour is in place for tests running in IntelliJ IDEA and Maven, which are both capable of correctly handling ANSI output even though there is not a TTY.
@@ -30,6 +34,8 @@
 
 * Initial release
 
+[2.1.1]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.1.1
+[2.1.0]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.1.0
 [2.0.0]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-2.0.0
 [1.0.4]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.4
 [1.0.3]: https://github.com/rnorth/visible-assertions/releases/tag/visible-assertions-1.0.3
