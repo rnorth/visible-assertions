@@ -1,3 +1,5 @@
+package org.rnorth;
+
 import org.rnorth.ansi.CapabilityDetection;
 
 import static org.rnorth.ansi.AnsiLite.green;
