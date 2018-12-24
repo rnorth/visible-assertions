@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/rnorth/visible-assertions
+    parallelism: 1
+    environment: {}
+    docker:
+    - image: circleci/openjdk:8
+    - image: circleci/openjdk:11
+    steps:
+    - checkout
+    - run: mkdir -p /tmp/circleci-artifacts
+    - restore_cache:
+        keys:
+        # This branch if available
+        - v1-dep-{{ .Branch }}-
+        # Default branch if not
+        - v1-dep-master-
+        # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+        - v1-dep-
+    - run: mvn dependency:go-offline || true
+    - save_cache:
+        key: v1-dep-{{ .Branch }}-{{ epoch }}
+        paths:
+        - ~/.m2
+        - ~/.ivy2
+        - ~/.gradle
+    - run: mvn integration-test
+    - store_test_results:
+        path: /tmp/circleci-test-results
+    - store_artifacts:
+        path: /tmp/circleci-artifacts
+    - store_artifacts:
+        path: /tmp/circleci-test-results
