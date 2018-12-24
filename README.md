@@ -4,7 +4,7 @@
 
 <img src="screenshot.png" width="100%" alt="Screenshot showing example output"/>
 
-[![Circle CI](https://circleci.com/gh/rnorth/visible-assertions/tree/master.svg?style=svg)](https://circleci.com/gh/rnorth/visible-assertions/tree/master)
+[![Build Status](https://travis-ci.org/rnorth/visible-assertions.svg?branch=master)](https://travis-ci.org/rnorth/visible-assertions)
 
 
 ## Table of Contents
